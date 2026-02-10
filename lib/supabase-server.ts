@@ -152,7 +152,7 @@ export const db = {
     id: string,
     updates: Partial<Omit<StyleGuide, 'id' | 'created_at'>>
   ) {
-    const { data, error } = await supabaseServer
+    const { data, error} = await supabaseServer
       .from('style_guides')
       .update({ ...updates, updated_at: new Date().toISOString() })
       .eq('id', id)
@@ -161,6 +161,16 @@ export const db = {
 
     if (error) throw error;
     return data;
+  },
+
+  async deleteStyleGuide(id: string) {
+    const { error } = await supabaseServer
+      .from('style_guides')
+      .delete()
+      .eq('id', id);
+
+    if (error) throw error;
+    return { success: true };
   },
 
   // Feedback

@@ -103,3 +103,26 @@ export async function PUT(request: NextRequest) {
     );
   }
 }
+
+export async function DELETE(request: NextRequest) {
+  try {
+    const { searchParams } = request.nextUrl;
+    const id = searchParams.get('id');
+
+    if (!id) {
+      return NextResponse.json(
+        { error: 'Style guide ID is required' },
+        { status: 400 }
+      );
+    }
+
+    await db.deleteStyleGuide(id);
+    return NextResponse.json({ success: true });
+  } catch (error) {
+    console.error('Error deleting style guide:', error);
+    return NextResponse.json(
+      { error: getErrorMessage(error), details: pickErrorDetails(error) },
+      { status: 500 }
+    );
+  }
+}

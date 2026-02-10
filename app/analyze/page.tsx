@@ -283,12 +283,12 @@ export default function AnalyzePage() {
               </CardHeader>
               <CardContent>
                 <div className="grid grid-cols-2 gap-4 text-center">
-                  <div className="p-6 bg-success/10 rounded-lg border border-success/20">
-                    <p className="text-3xl font-bold text-success mb-1">{clips.length}</p>
+                  <div className="p-6 bg-muted/50 rounded-lg border">
+                    <p className="text-3xl font-bold text-foreground mb-1">{clips.length}</p>
                     <p className="text-sm text-muted-foreground">Clips (Do This)</p>
                   </div>
-                  <div className="p-6 bg-amber-50 dark:bg-amber-950/20 rounded-lg border border-amber-200 dark:border-amber-900">
-                    <p className="text-3xl font-bold text-amber-600 dark:text-amber-500 mb-1">{feedbackList.length}</p>
+                  <div className="p-6 bg-muted/50 rounded-lg border">
+                    <p className="text-3xl font-bold text-foreground mb-1">{feedbackList.length}</p>
                     <p className="text-sm text-muted-foreground">Feedback (Don&apos;t Do)</p>
                   </div>
                 </div>
@@ -327,6 +327,7 @@ export default function AnalyzePage() {
                 <Button
                   onClick={handleAnalyzeEverything}
                   disabled={analyzing || totalItems === 0}
+                  variant="outline"
                   className="w-full"
                   size="lg"
                 >
@@ -341,7 +342,7 @@ export default function AnalyzePage() {
                 <Button
                   onClick={handleAnalyzeSelected}
                   disabled={analyzing || selectedTotal === 0}
-                  variant="secondary"
+                  variant="outline"
                   className="w-full"
                   size="lg"
                 >

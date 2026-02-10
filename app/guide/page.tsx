@@ -9,7 +9,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useToast } from '@/hooks/use-toast';
 import { downloadTextFile, copyToClipboard, formatDate } from '@/lib/utils';
-import { Download, Copy, Loader2, FileText, ChevronLeft, Pencil, Save, X, MessageSquare, Send, MoreVertical } from 'lucide-react';
+import { Download, Copy, Loader2, FileText, ChevronLeft, Pencil, Save, X, MessageSquare, Send, MoreVertical, Trash2 } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import {
   DropdownMenu,
@@ -31,6 +31,7 @@ export default function GuidePage() {
   const [editTitle, setEditTitle] = useState('');
   const [editContent, setEditContent] = useState('');
   const [saving, setSaving] = useState(false);
+  const [deleting, setDeleting] = useState(false);
 
   // Chat state
   const [showChat, setShowChat] = useState(false);
@@ -217,6 +218,42 @@ export default function GuidePage() {
     }
   };
 
+  const handleDelete = async () => {
+    if (!selectedGuide) return;
+
+    if (!confirm(`Are you sure you want to delete "${selectedGuide.title}"? This cannot be undone.`)) {
+      return;
+    }
+
+    setDeleting(true);
+    try {
+      const response = await fetch(`/api/style-guide?id=${selectedGuide.id}`, {
+        method: 'DELETE',
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to delete style guide');
+      }
+
+      toast({
+        title: 'Deleted',
+        description: 'Style guide deleted successfully',
+      });
+
+      // Remove from list and go back
+      setAllGuides((prev) => prev.filter((g) => g.id !== selectedGuide.id));
+      setSelectedGuide(null);
+    } catch {
+      toast({
+        title: 'Error',
+        description: 'Failed to delete style guide',
+        variant: 'destructive',
+      });
+    } finally {
+      setDeleting(false);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-background">
       <header className="sticky top-0 z-40 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -256,6 +293,18 @@ export default function GuidePage() {
                   <DropdownMenuItem onClick={handleDownload}>
                     <Download className="h-4 w-4 mr-2" />
                     Download Markdown
+                  </DropdownMenuItem>
+                  <DropdownMenuItem
+                    onClick={handleDelete}
+                    disabled={deleting}
+                    className="text-destructive focus:text-destructive"
+                  >
+                    {deleting ? (
+                      <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                    ) : (
+                      <Trash2 className="h-4 w-4 mr-2" />
+                    )}
+                    Delete Guide
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
