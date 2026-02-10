@@ -14,7 +14,7 @@ interface ClipCardProps {
 export function ClipCard({ clip }: ClipCardProps) {
   return (
     <Link href={`/clips/${clip.id}`}>
-      <Card className="hover:bg-accent transition-colors cursor-pointer">
+      <Card className="hover:bg-muted/50 transition-colors cursor-pointer">
         <CardHeader className="pb-3">
           <div className="flex items-start justify-between gap-2">
             <div className="flex-1">
