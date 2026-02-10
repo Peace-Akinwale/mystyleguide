@@ -380,56 +380,56 @@ export default function GuidePage() {
 
             {/* Chat panel */}
             {showChat && !isEditing && (
-              <Card className="h-[calc(100vh-12rem)] flex flex-col">
-                <CardHeader className="pb-3">
-                  <CardTitle className="text-lg">Chat with Your Guide</CardTitle>
-                </CardHeader>
-                <CardContent className="flex-1 flex flex-col p-0">
-                  <div className="flex-1 overflow-y-auto p-4 space-y-4">
-                    {chatMessages.map((msg, idx) => (
+              <div className="h-[calc(100vh-12rem)] flex flex-col bg-[#1a1f2e] rounded-lg overflow-hidden">
+                <div className="px-4 py-3 border-b border-gray-700">
+                  <h3 className="text-lg font-semibold text-gray-100">Chat with Your Guide</h3>
+                </div>
+                <div className="flex-1 overflow-y-auto p-4 space-y-3">
+                  {chatMessages.map((msg, idx) => (
+                    <div
+                      key={idx}
+                      className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
+                    >
                       <div
-                        key={idx}
-                        className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
+                        className={`max-w-[85%] rounded-2xl px-4 py-3 ${
+                          msg.role === 'user'
+                            ? 'bg-[#0ea5e9] text-white rounded-br-md'
+                            : 'bg-[#2d3748] text-gray-100 rounded-bl-md'
+                        }`}
                       >
-                        <div
-                          className={`max-w-[80%] rounded-lg p-3 ${
-                            msg.role === 'user'
-                              ? 'bg-primary text-primary-foreground'
-                              : 'bg-muted'
-                          }`}
-                        >
-                          <p className="text-sm whitespace-pre-wrap">{msg.content}</p>
-                        </div>
+                        <p className="text-[15px] leading-relaxed whitespace-pre-wrap">{msg.content}</p>
                       </div>
-                    ))}
-                    {chatLoading && (
-                      <div className="flex justify-start">
-                        <div className="bg-muted rounded-lg p-3">
-                          <Loader2 className="h-4 w-4 animate-spin" />
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                  <div className="p-4 border-t">
-                    <div className="flex gap-2">
-                      <Input
-                        value={chatInput}
-                        onChange={(e) => setChatInput(e.target.value)}
-                        onKeyDown={(e) => e.key === 'Enter' && !e.shiftKey && handleChatSubmit()}
-                        placeholder="Ask about your style guide..."
-                        disabled={chatLoading}
-                      />
-                      <Button
-                        onClick={handleChatSubmit}
-                        disabled={chatLoading || !chatInput.trim()}
-                        size="sm"
-                      >
-                        <Send className="h-4 w-4" />
-                      </Button>
                     </div>
+                  ))}
+                  {chatLoading && (
+                    <div className="flex justify-start">
+                      <div className="bg-[#2d3748] rounded-2xl rounded-bl-md px-4 py-3">
+                        <Loader2 className="h-4 w-4 animate-spin text-gray-100" />
+                      </div>
+                    </div>
+                  )}
+                </div>
+                <div className="p-4 border-t border-gray-700">
+                  <div className="flex gap-2">
+                    <Input
+                      value={chatInput}
+                      onChange={(e) => setChatInput(e.target.value)}
+                      onKeyDown={(e) => e.key === 'Enter' && !e.shiftKey && handleChatSubmit()}
+                      placeholder="Ask about your style guide..."
+                      disabled={chatLoading}
+                      className="bg-[#2d3748] border-gray-600 text-gray-100 placeholder:text-gray-400 focus-visible:ring-[#0ea5e9]"
+                    />
+                    <Button
+                      onClick={handleChatSubmit}
+                      disabled={chatLoading || !chatInput.trim()}
+                      size="sm"
+                      className="bg-[#0ea5e9] hover:bg-[#0284c7] text-white"
+                    >
+                      <Send className="h-4 w-4" />
+                    </Button>
                   </div>
-                </CardContent>
-              </Card>
+                </div>
+              </div>
             )}
           </div>
         )}
