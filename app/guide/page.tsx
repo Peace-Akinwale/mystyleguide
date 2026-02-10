@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { StyleGuide } from '@/types';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -40,7 +40,7 @@ export default function GuidePage() {
 
   const { toast } = useToast();
 
-  const fetchAllGuides = async () => {
+  const fetchAllGuides = useCallback(async () => {
     try {
       const response = await fetch('/api/style-guide?all=true');
       if (response.ok) {
@@ -63,11 +63,11 @@ export default function GuidePage() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [toast]);
 
   useEffect(() => {
     void fetchAllGuides();
-  }, [toast]);
+  }, [fetchAllGuides]);
 
   const handleDownload = () => {
     if (!selectedGuide) return;
@@ -86,7 +86,7 @@ export default function GuidePage() {
         title: 'Copied',
         description: 'Style guide copied to clipboard',
       });
-    } catch (error) {
+    } catch {
       toast({
         title: 'Error',
         description: 'Failed to copy to clipboard',
@@ -153,7 +153,7 @@ export default function GuidePage() {
         title: 'Saved',
         description: 'Style guide updated successfully',
       });
-    } catch (error) {
+    } catch {
       toast({
         title: 'Error',
         description: 'Failed to save changes',
@@ -206,7 +206,7 @@ export default function GuidePage() {
         ...prev,
         { role: 'assistant', content: data.message },
       ]);
-    } catch (error) {
+    } catch {
       toast({
         title: 'Error',
         description: 'Failed to get response',

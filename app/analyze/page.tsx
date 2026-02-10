@@ -273,7 +273,7 @@ export default function AnalyzePage() {
                   </div>
                   <div className="p-4 bg-red-50 dark:bg-red-950/20 rounded-lg">
                     <p className="text-2xl font-bold text-red-600">{feedbackList.length}</p>
-                    <p className="text-sm text-muted-foreground">Feedback (Don't Do)</p>
+                    <p className="text-sm text-muted-foreground">Feedback (Don&apos;t Do)</p>
                   </div>
                 </div>
               </CardContent>
@@ -428,7 +428,7 @@ export default function AnalyzePage() {
               </CardHeader>
               <CardContent>
                 <p className="text-sm text-muted-foreground mb-4">
-                  Generate a comprehensive style guide with both "Do This" and "Don't Do This" sections.
+                  Generate a comprehensive style guide with both &quot;Do This&quot; and &quot;Don&apos;t Do This&quot; sections.
                 </p>
                 <Button
                   onClick={handleGenerateStyleGuide}

@@ -167,7 +167,7 @@ export default function FeedbackPage() {
               </div>
               <div>
                 <h3 className="font-semibold mb-2 text-red-600 dark:text-red-400">
-                  Editor's Feedback
+                  Editor&apos;s Feedback
                 </h3>
                 <div className="p-4 bg-red-50 dark:bg-red-950/20 rounded-lg border border-red-200 dark:border-red-900">
                   <p className="whitespace-pre-wrap text-red-700 dark:text-red-300">

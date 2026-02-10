@@ -94,7 +94,7 @@ export function AddFeedbackModal({
         <DialogHeader>
           <DialogTitle>Add Editor Feedback</DialogTitle>
           <DialogDescription>
-            Save your text and the editor's correction to learn from mistakes
+            Save your text and the editor&apos;s correction to learn from mistakes
           </DialogDescription>
         </DialogHeader>
 
@@ -111,7 +111,7 @@ export function AddFeedbackModal({
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="editor-feedback">Editor's Feedback/Correction *</Label>
+            <Label htmlFor="editor-feedback">Editor&apos;s Feedback/Correction *</Label>
             <Textarea
               id="editor-feedback"
               placeholder="What did the editor say? What was the correction or suggestion?"

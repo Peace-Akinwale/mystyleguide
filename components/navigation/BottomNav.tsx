@@ -7,7 +7,6 @@ import {
   FileText,
   Sparkles,
   BookOpen,
-  PenTool,
   User,
   MessageSquare,
 } from 'lucide-react';
