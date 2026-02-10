@@ -40,7 +40,7 @@ When they ask for changes, provide the updated content clearly marked. Be specif
       model: ANTHROPIC_MODEL,
       max_tokens: 4096,
       system: systemMessage,
-      messages: messages.map((msg: { role: string; content: string }) => ({
+      messages: messages.map((msg: { role: 'user' | 'assistant'; content: string }) => ({
         role: msg.role,
         content: msg.content,
       })),
