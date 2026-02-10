@@ -29,19 +29,29 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     const { clipIds, feedbackIds, title, includeFeedback } = body;
 
-    // Fetch clips
-    const clips = clipIds && clipIds.length > 0
-      ? await Promise.all(clipIds.map((id: string) => db.getClip(id)))
-      : [];
+    // Fetch clips - if no specific IDs provided, fetch all
+    let clips = [];
+    if (clipIds && clipIds.length > 0) {
+      clips = await Promise.all(clipIds.map((id: string) => db.getClip(id)));
+    } else {
+      const allClips = await db.getClips();
+      clips = allClips || [];
+    }
 
-    // Fetch feedback
-    const feedback = includeFeedback && feedbackIds && feedbackIds.length > 0
-      ? await Promise.all(feedbackIds.map((id: string) => db.getFeedbackItem(id)))
-      : [];
+    // Fetch feedback - if no specific IDs provided, fetch all
+    let feedback = [];
+    if (includeFeedback) {
+      if (feedbackIds && feedbackIds.length > 0) {
+        feedback = await Promise.all(feedbackIds.map((id: string) => db.getFeedbackItem(id)));
+      } else {
+        const allFeedback = await db.getFeedback();
+        feedback = allFeedback || [];
+      }
+    }
 
     if (clips.length === 0 && feedback.length === 0) {
       return NextResponse.json(
-        { error: 'At least one clip or feedback item is required' },
+        { error: 'No clips or feedback found. Add some first.' },
         { status: 400 }
       );
     }

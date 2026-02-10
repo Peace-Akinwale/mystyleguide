@@ -3,10 +3,11 @@ import { db } from '@/lib/supabase-server';
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const feedback = await db.getFeedbackItem(params.id);
+    const { id } = await params;
+    const feedback = await db.getFeedbackItem(id);
     return NextResponse.json(feedback);
   } catch (error) {
     console.error('Error fetching feedback:', error);
@@ -16,11 +17,12 @@ export async function GET(
 
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params;
     const body = await request.json();
-    const feedback = await db.updateFeedback(params.id, body);
+    const feedback = await db.updateFeedback(id, body);
     return NextResponse.json(feedback);
   } catch (error) {
     console.error('Error updating feedback:', error);
@@ -33,10 +35,11 @@ export async function PUT(
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    await db.deleteFeedback(params.id);
+    const { id } = await params;
+    await db.deleteFeedback(id);
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error('Error deleting feedback:', error);

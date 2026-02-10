@@ -91,12 +91,15 @@ export default function FeedbackPage() {
                 Back
               </Button>
             )}
-            <h1 className="text-2xl font-bold">
+            <h1 className="text-h2">
               {selectedFeedback ? 'Feedback Details' : 'Editor Feedback'}
             </h1>
           </div>
           {!selectedFeedback && (
-            <Button size="sm" onClick={() => setAddModalOpen(true)}>
+            <Button
+              onClick={() => setAddModalOpen(true)}
+              className="shadow-sm"
+            >
               <Plus className="h-4 w-4 mr-2" />
               Add Feedback
             </Button>
@@ -128,11 +131,15 @@ export default function FeedbackPage() {
           // List view
           feedbackList.length === 0 ? (
             <div className="flex flex-col items-center justify-center py-12 text-center">
-              <p className="text-muted-foreground mb-4">
+              <p className="text-muted-foreground mb-6">
                 No feedback yet. Add editor corrections to learn from your mistakes.
               </p>
-              <Button onClick={() => setAddModalOpen(true)}>
-                <Plus className="h-4 w-4 mr-2" />
+              <Button
+                onClick={() => setAddModalOpen(true)}
+                size="lg"
+                className="shadow-md"
+              >
+                <Plus className="h-5 w-5 mr-2" />
                 Add Your First Feedback
               </Button>
             </div>
@@ -166,11 +173,11 @@ export default function FeedbackPage() {
                 </div>
               </div>
               <div>
-                <h3 className="font-semibold mb-2 text-red-600 dark:text-red-400">
+                <h3 className="font-semibold mb-2 text-amber-700 dark:text-amber-400">
                   Editor&apos;s Feedback
                 </h3>
-                <div className="p-4 bg-red-50 dark:bg-red-950/20 rounded-lg border border-red-200 dark:border-red-900">
-                  <p className="whitespace-pre-wrap text-red-700 dark:text-red-300">
+                <div className="p-4 bg-amber-50 dark:bg-amber-950/20 rounded-lg border border-amber-200 dark:border-amber-900">
+                  <p className="whitespace-pre-wrap text-amber-900 dark:text-amber-100">
                     {selectedFeedback.editor_feedback}
                   </p>
                 </div>
